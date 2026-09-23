@@ -238,8 +238,38 @@ Class - 2
 
         -> Assign Work To Developers - GitHub Projects & Issues 
 
-        -> Developers Will Install Git in Laptops 
-
         -> Developers Will Start Coding - Versioning Starts 
 
         -> Developers Will Update Code From Laptop To GitHub 
+
+
+Class - 3
+==========
+
+    -> Created GitHub Account - https://github.com 
+
+    -> Created Repository
+
+        -> https://github.com/ravi2krishna/login-2606.git  
+
+    -> Assign Work To Developers - GitHub Projects & Issues 
+
+        -> Invited Couple Of Developers (dev1 - dev2)
+
+        -> Start Creating Project - https://github.com/users/ravi2krishna/projects/18/views/1
+
+        -> Start Creating Issues - https://github.com/ravi2krishna/login-2606/issues 
+
+    
+    -> Developers Will Start Coding - Versioning Starts 
+
+        -> Install GitBash (git software) 
+
+        -> Setting Git Configuration 
+
+            -> git config --global user.name ravi2krishna
+            -> git config --global user.email ravi2krishna@gmail.com 
+
+        -> Install Some IDE(Visual Studio Code) To Write Code 
+
+        -> Start Coding Based On Issues Assigned 

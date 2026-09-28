@@ -273,3 +273,43 @@ Class - 3
         -> Install Some IDE(Visual Studio Code) To Write Code 
 
         -> Start Coding Based On Issues Assigned 
+
+
+Class - 4
+==========
+
+    -> Git Workflow 
+
+        -> When We (Developers) Write Code, it goes through different areas 
+
+            -> Working Area / Copy 
+
+            -> Staging Area / Copy
+
+            -> Local Area / Copy
+
+            -> Remote Area / Copy
+
+        
+        -> Developer Writes Codes (Initially Working Area) 
+
+            -> Stage Area (Code is partially good) 
+
+                -> Local Area (Code which is perfectly working - Committing)
+
+                    -> Remote Area (Code From Local Area To GitHub)
+
+
+    
+    -> NOTE: Can Customers / Clients Access Application From GitHub ? 
+
+        -> NO 
+
+    -> We Need Servers To Host / To Deploy Applications 
+
+    -> To Deploy Applications, We Need "Operations" Related Knowledge
+
+    -> Servers On AWS / AZURE Platforms.
+    
+     
+

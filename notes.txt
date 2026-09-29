@@ -312,4 +312,151 @@ Class - 4
     -> Servers On AWS / AZURE Platforms.
     
      
+Class - 5
+==========
 
+    -> Servers 
+
+        ->  A Server is a "computer system" that provides data or services 
+        to others computers, known as "clients" over a network.
+
+        -> https://upload.wikimedia.org/wikipedia/commons/c/c9/Client-server-model.svg
+
+    -> Computer / Laptop Can Be Used By Only One Person At a Time 
+
+    -> Server Can Be Used By Multiple Persons (Clients) At a Time 
+
+    -> Physical Server 
+
+        -> Physical Server is hosted on Physical Datacenter / On-prem Datacenter
+
+    -> Virtual Server / Cloud Server 
+
+        -> Virtual Server / Cloud Server is hosted on Virtual Datacenter / Cloud Datacenter 
+
+    -> NOTE: Any Type Of Server has Components i.e Physical / Virtual / Cloud 
+
+        -> CPU (processor) + RAM (memory) + HDD (Disk) + Network 
+
+        -> Operating System (Linux OS - Ubuntu)
+
+        -> Server Softwares 
+
+            -> Web Server: Hosts Web Pages / Web Applications Over Internet 
+
+                -> Examples: Apache Web Server, Nginx Web Server, IIS Server etc 
+
+            -> Database Server: Hosts Application Data & Transactions 
+
+                -> Examples: MySQL Server, Postgres Server, Oracle DB Server etc 
+
+            -> Email Server: Hosts Email Services, To Send and Receive Emails 
+
+                -> Examples: Postfix Server, SendMail, SendGrid etc 
+
+
+    -> Where To Get Servers From ?? 
+
+        -> Rather than Purchasing Server, We want to "Rent Servers" 
+
+        -> Buying Bike == Lot Of Expenditure 
+        (Initial Cost 1 Lakh, Service Costs, Petrol Charges etc)            
+
+        -> Renting Bike == Less Expenditure 
+        (Initial Cost 1 Lakh, Service Costs, Petrol Charges etc) - NO 
+
+            -> Only Pay For Kilometers you have traveled (Pay As You Go)
+
+        -> Renting Server == Less Expenditure 
+
+
+    -> Cloud Computing 
+
+        -> Cloud computing is the "on-demand" delivery of "IT resources" 
+        like servers, storage, and software over the "internet" 
+        on a "pay-as-you-go" basis.
+
+        -> In Our Course Will Implement Servers On "AWS" & "AZURE"
+
+        -> AWS Account Setup - LABS 
+        
+            Visit - https://aws.amazon.com/free
+
+        -> AZURE Account Setup - LABS
+            
+            Visit - https://azure.microsoft.com/en-us/free/
+
+        -> To Create Above Free Cloud Accounts, You Need  
+
+            -> Email ID (Which was not used for AWS / Azure Earlier)
+
+            -> Mobile Number (Which was not used for AWS / Azure Earlier)
+
+            -> PAN Number 
+
+            -> Credit Card / Debit Card (Azure/AWS) - UPI (AWS) (2 INR)
+
+
+    -> Server Setup On Azure Cloud 
+
+        -> Server == Azure Virtual Machine 
+
+    -> Server Setup On AWS Cloud 
+
+        -> Server == AWS EC2 Instance  
+
+
+    -> To Deploy Our Application, Will Setup Server On Azure Cloud 
+
+        -> Server == Azure Virtual Machine 
+
+        -> Server Will Be Part Of Network 
+
+            -> Network == Azure Virtual Network(VNET)
+
+        -> Firewall 
+
+            -> A firewall is a network security system that monitors and controls 
+           network traffic based on predetermined security rules (protocols)
+
+            -> SSH protocol: Secure Shell Used for remote login, command execution
+
+                -> Port: 22
+
+            -> HTTP protocol: Hypertext Transfer Protocol Used For 
+            data exchange on the World Wide Web
+
+                -> Port: 80 
+
+            -> Firewall == Azure Network Security Group (NSG)
+
+
+        -> Once You Create Server / Azure Virtual Machine, To Connect With Server 
+
+            -> From Web 
+
+                -> https://ssheasy.com/
+
+            -> From Laptop / Desktop 
+
+                -> Install SSH Client 
+
+                    -> Install GitBash / Terminal 
+
+                    -> Open GitBash / Terminal 
+
+                        -> ssh username@public-ip-address 
+
+
+        -> NOTE: We Are Using Linux Server, Which Have Only CLI (Command Line Interface)
+
+        -> CLI - Command Line Interface
+
+            -> CLI Is Powerful Tool For Interacting With Servers Through 
+            "Text Based Commands"
+
+            -> With GUI - NO AUTOMATION (*)
+
+            -> CLI Is Very Helpful In "Automating Repetitive Tasks"
+
+            

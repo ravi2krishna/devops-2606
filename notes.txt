@@ -460,3 +460,150 @@ Class - 5
             -> CLI Is Very Helpful In "Automating Repetitive Tasks"
 
             
+Class - 6
+==========
+
+    -> Command Line Interface (Using Commands To Communicate With Server)
+
+        -> CPU Info
+
+            -> cat /proc/cpuinfo 
+
+        -> RAM Info 
+
+            -> free -m (4 GB RAM)
+
+        -> Disk Info 
+
+            -> df -h (30 GB HDD - 2 GB OS Ubuntu)
+
+        -> Operating System Info 
+
+            -> cat /etc/os-release 
+
+        -> Check Running Processes 
+
+            -> ps -ef 
+
+            -> htop (type q to quit)
+
+    
+    -> Web Server 
+
+        -> A Web Server Is Computer Software which Accepts Request via HTTP 
+        Over Port 80 To Distribute Web Content.
+
+        -> NOTE: All Servers That Host Websites Must Have "Web Server" Program
+
+        -> NOTE: Whole Internet Is Powered Web Servers 
+
+        -> Commands To Work With Web Server 
+
+            -> sudo ss -ntpl 
+
+            -> We can see ports 22 & 53, which are already installed as part OS 
+
+            -> We Don't See Port 80 Which Indicates there is no web server software 
+
+        -> Install Web Server (Nginx)
+
+            -> sudo apt update -y 
+
+            -> sudo apt install nginx -y 
+
+            -> sudo ss -ntpl 
+
+                -> We Should See Port 80 Which Indicates web server software is present
+
+            -> Browse http://ip-address-server 
+
+                -> If you see this page, the nginx web server is successfully installed 
+                and working. Further configuration is required.
+
+        
+        -> Hosting Application On Web Server
+
+            -> For Web Server, We Have DocumentRoot i.e location
+            where we host web Application content (/var/www/html)
+
+                -> ls /var/www/html
+
+                    index.nginx-debian.html
+
+                -> index  page is called Landing Page 
+
+                -> cat /var/www/html/index.nginx-debian.html
+
+        -> Application Repository: https://github.com/ravi2krishna/login-2606.git 
+
+        -> Clone Repository Using CLI  
+
+            -> sudo git clone <url-repo> <destination>
+
+            -> sudo git clone https://github.com/ravi2krishna/login-2606.git /var/www/html
+
+                -> fatal: destination path '/var/www/html' already exists and is not an empty directory.
+
+            -> To Empty i.e Remove use 
+
+                -> sudo rm -r /var/www/html     
+
+            -> sudo git clone https://github.com/ravi2krishna/login-2606.git /var/www/html
+
+            -> ls /var/www/html
+
+                README.md  img_avatar2.png  index.html
+
+            -> Browse http://ip-address-server 
+
+
+    
+    -> To Deploy Our Application, Will Setup Server On AWS Cloud 
+
+        -> Server == AWS EC2 Instance 
+
+        -> Server Will Be Part Of Network 
+
+            -> Network == AWS Virtual Private Cloud(VPC)
+
+        -> Firewall 
+
+            -> A firewall is a network security system that monitors and controls 
+           network traffic based on predetermined security rules (protocols)
+
+            -> SSH protocol: Secure Shell Used for remote login, command execution
+
+                -> Port: 22
+
+            -> HTTP protocol: Hypertext Transfer Protocol Used For 
+            data exchange on the World Wide Web
+
+                -> Port: 80 
+
+            -> Firewall == AWS Security Group (SG)
+
+        -> NOTE: In AWS We Don't Have Password Login, We Have Only 
+        Key Based Login i.e Key Pairs 
+
+
+        -> Once You Create Server / Azure Virtual Machine, To Connect With Server 
+
+            -> From Web 
+
+                -> https://ssheasy.com/
+
+            -> From Laptop / Desktop 
+
+                -> Install SSH Client 
+
+                    -> Install GitBash / Terminal 
+
+                    -> Open GitBash / Terminal 
+
+                        -> cd downloads
+
+                        -> chmod 400 file.pem
+                        
+                        -> ssh -i file.pem username@public-ip-address 
+
+                        

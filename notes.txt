@@ -786,3 +786,77 @@ Class - 8
 
 
 
+Class - 9
+==========
+
+    -> SCA(Static Code Analysis) With SonarQube On LMS Project 
+
+    -> Browse SonarQube With Port 9000 (http://ip-address:9000)
+
+    -> Default credentials are 
+        
+        Username is admin 
+        Password is admin
+
+    
+    -> LMS Application Repository         
+
+        -> https://github.com/ravi2krishna/lms-v1.git
+
+    
+    -> GitHub Fork 
+
+        -> Forking a repository means creating a copy of the repo. 
+        When you fork a repo, you create your own copy of the repo on your GitHub account.
+
+        -> NOTE: Fork Above Project to your Github Accounts
+
+    -> Performing Code Analysis On LMS Project 
+
+        -> https://github.com/BhandaviMatta/lms-v1.git
+
+        -> NOTE: Above Link Should be Replaced with your github account 
+
+
+        ls 
+        git clone -b dev https://github.com/BhandaviMatta/lms-v1.git 
+        ls 
+        ls lms-v1/
+        cd lms-v1/webapp
+
+        sudo docker run  --rm -e SONAR_HOST_URL="http://18.144.166.36:9000" -v ".:/usr/src" sonarsource/sonar-scanner-cli -Dsonar.token=sqp_a7590ac937bcff78b8b608041d8c12b761d7bbd5 -Dsonar.projectKey=lms
+
+        -> NOTE: From Above Command, Replace Your SonarQube address, Your Token and Project Name 
+
+
+
+    -> Build Management 
+
+        -> The term "build" may refer to the "process" by which 
+        "source code" is converted into "binary code" (software artifact)
+
+        -> Source Code 
+
+            -> https://github.com/notepad-plus-plus/notepad-plus-plus
+
+        -> NOTE: After Doing The Build, Artifact is Generated i.e Useable Software 
+
+        -> Binary Code 
+
+            -> https://notepad-plus-plus.org/downloads/
+
+        -> For Our LMS Project - Source Code
+
+            -> https://github.com/ravi2krishna/lms-v1.git
+
+        -> For Our LMS Project - Binary Code Should Be Generated, 
+        then we can use the Application 
+
+            -> https://lms.digitallync.ai/ 
+
+        
+        -> NOTE: Only After Build Is Completed, We Get Useable Softwares 
+
+
+
+        

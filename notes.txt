@@ -859,4 +859,175 @@ Class - 9
 
 
 
+Class - 10
+==========
+
+    -> Any Build Implementation Consists Of Following Steps 
+
+        -> Source Code Files 
+
+            -> Source Code Is Instructions Programmer Writes (Java/Python/JS)
+
+            -> Handled By Developer 
+
+        -> Metadata File 
+
+            -> File That contains information about the project and 
+            configuration details about project.
+
+            -> Handled By Developer 
+
         
+        -> Binary Code (After Build Is Done)
+
+            -> Build Artifacts are files produced by Build 
+
+            -> Handled By Developer In Laptop (*)
+
+            -> Handled By DevOps Engineer In Server (*)
+
+
+    -> NOTE: Below Link Helps You Understand, How Developers Initially 
+    Learn To Perform Builds 
+
+        -> https://radixweb.com/blog/steps-to-build-react-project-with-create-react-app
+
+        -> Final Step i.e Build & Deploy 
+
+            -> npm run build 
+
+    
+    -> LMS Project Build 
+
+        -> As LMS App is Multi Tier Architecture, we has multiple Components, 
+        we need to add following Ports In Security Group / Network Security Group 
+
+            -> SSH - 22 
+
+            -> Database - Postgres - 5432 - Working With Data 
+
+            -> Application Layer - API -  Nodejs - 8080 - Business Logics 
+
+            -> Frontend Layer - Look & Feel - Interaction With Application - 80 
+
+    
+        -> LMS Project Setup Requires Following Hardware Configuration 
+
+        -> AWS / AZURE 
+
+            -> 8 GB RAM - 2 CPU's - 30 GB Storage 
+
+            -> LMS Project Needs Ports - 22 - 5432 - 8080 - 80 
+
+        
+        -> Setup Database 
+
+            -> sudo ss -ntpl
+
+            -> Goto https://www.postgresql.org/download/linux/ubuntu/
+
+                sudo apt install curl ca-certificates
+                sudo install -d /usr/share/postgresql-common/pgdg
+                sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
+                . /etc/os-release
+                sudo sh -c "echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $VERSION_CODENAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
+                sudo apt update
+                sudo apt install postgresql-18 -y 
+
+            -> sudo ss -ntpl 
+
+        
+        -> Every Database Contains Connection Properties 
+
+            -> Address Of Database 
+
+            -> Database Port Number 
+
+            -> Database Username 
+
+            -> Database Password 
+
+        -> Commands To Set Database Password 
+
+            -> sudo su - postgres 
+
+            -> psql 
+
+            -> \password 
+
+        
+        -> NOTE: https://miro.medium.com/v2/resize:fit:1400/1*9nvTbygByYk1TBGVLB86PQ.png
+
+
+        -> Setup Backend API / Application Layer For LMS Project 
+
+            -> Create New Session To Server using ubuntu user 
+
+            -> Install Nodejs 
+
+                -> https://nodesource.com/products/distributions
+
+                    node -v
+                    npm -v
+                    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+                    sudo apt-get install nodejs -y
+                    node -v
+                    npm -v 
+
+        
+        -> Steps to Build Backend API (use "ubuntu" user session)
+
+            -> ls
+            -> git clone -b dev https://github.com/ravi2krishna/lms-v1.git 
+            -> ls 
+            -> cd ~/lms-v1/api
+            -> vi .env 
+
+                MODE=dev
+                PORT=8080
+                DATABASE_URL=postgresql://postgres:db_password@localhost:5432/postgres
+
+                -> NOTE: In .env file we would specify the database connection details.
+
+                    -> grep .env -r
+            
+            -> Verify in "postgres" user session 
+
+                -> \dt 
+
+            -> Database Schema (Verify in "ubuntu" user session)
+
+                -> cat prisma/migrations/20221110085013_init/migration.sql
+            
+            -> Commands to setup Database tables (Verify in "ubuntu" user session)
+
+                -> npm install 
+                -> npx prisma generate && npx prisma db push
+            
+            -> Verify in "postgres" user session 
+
+                -> \dt 
+
+                -> SELECT * FROM "Course";
+
+            -> NOTE: Command to build application using "ubuntu" user
+
+                -> ls build
+                -> npm run build 
+                -> ls build
+
+            -> Verify Backend with Browser 
+                
+                -> Browse http://public-ip:8080/api  
+
+            -> NOTE: Command to start application using "ubuntu" user    
+                
+                -> node build/index.js 
+
+        -> Verify Backend Status 
+
+            -> Verify with Browser - http://public-ip:8080/api  
+
+            -> NOTE: If you get below message, backend deployment is success   
+            
+                {"message":"success","mode":"dev"}

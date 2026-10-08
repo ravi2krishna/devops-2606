@@ -974,7 +974,11 @@ Class - 10
                     node -v
                     npm -v 
 
-        
+
+Class - 11
+==========
+
+
         -> Steps to Build Backend API (use "ubuntu" user session)
 
             -> ls
@@ -1031,3 +1035,39 @@ Class - 10
             -> NOTE: If you get below message, backend deployment is success   
             
                 {"message":"success","mode":"dev"}
+
+
+    
+    -> Setup Frontend For LMS 
+
+        -> In Our Repository, We Have "webapp" directory which is 
+        Frontend Part Of The Application 
+
+        -> Create New Session To Server using ubuntu user For Frontend Operations 
+
+        -> cd ~/lms-v1/webapp 
+
+        -> vi .env 
+
+            VITE_API_URL=http://public-ip:8080/api
+
+        -> To build frontend
+
+            -> npm install
+            -> ls dist
+            -> npm run build 
+            -> ls dist
+
+        -> To Host Frontend, we need web server 
+
+            -> sudo ss -ntpl
+            -> sudo apt -y install nginx
+            -> sudo ss -ntpl
+            -> ls /var/www/html/
+            -> sudo rm -rf /var/www/html/*
+            -> ls /var/www/html/
+            -> sudo cp -r ~/lms-v1/webapp/dist/*  /var/www/html/
+            -> ls /var/www/html/
+            -> ls dist 
+
+        -> SELECT * FROM "Course";

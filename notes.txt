@@ -1179,3 +1179,148 @@ Class - 12
         On Containers It Our Work On Projects. 
 
         
+
+Class - 13
+==========
+
+    -> Docker Architecture / Components 
+
+        -> Docker Client (CLI)
+
+        -> Docker Server (Daemon)
+
+        -> Docker Registry (Docker Hub - https://hub.docker.com/)
+
+        -> Docker Images 
+
+        -> Docker Container 
+
+    -> https://assets.bytebytego.com/diagrams/0414-how-does-docker-work.png
+
+
+
+    -> Python Is Programming "Language" 
+
+    -> SonarQube Is Code Analysis "Tool" 
+
+    -> Ubuntu Is Operating System "System Software"
+
+    -> Postgres Is "Database"
+
+    -> NOTE: All Above In Docker are Considered As Images and Stored In 
+    Registry (Docker Hub) - http://hub.docker.com/
+
+    -> Python Is Docker Image
+
+    -> SonarQube Is Docker Image
+
+    -> Ubuntu Is Docker Image
+
+    -> Postgres Is Docker Image 
+
+
+    -> Docker Containers are Runtime Of Images 
+
+        -> Images are like Templates / Blueprints
+
+        -> Containers are Real Entities We run
+
+        -> NOTE: To create a container, image is mandatory 
+
+    
+        -> Image 
+        
+            -> https://s3.amazonaws.com/gc-p/screenshots/pics/68446cebb1c92aa555eca8fbff217689/large.jpg
+
+        -> Containers 
+
+            -> https://cdn.mos.cms.futurecdn.net/Drifb4WGUoCj2gVUo2BQnG-1540-80.jpg
+
+            -> https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/2018_BMW_M5_Automatic_4.4.jpg/1280px-2018_BMW_M5_Automatic_4.4.jpg
+
+
+    -> A container is an object for holding or transporting/shipping applications.
+
+        -> To Create Container, we use Docker Client (CLI) and make a request 
+
+        -> DevOps Engineer -> Makes Request For Creating Container Using Docker Client (CLI)
+
+            -> Docker Client (CLI) -> Sends Request To Docker Server (Daemon) 
+                -> Daemon Connects To Docker Registry -> Fetch Docker Images to Server(compute) 
+                    -> Using Image Daemon Runs/Creates Containers
+
+
+        -> The Daemon/Service is responsible for managing Docker objects 
+        such as images, containers, and networks. All the heavy lifting is done by daemon.
+        
+        -> The client sends commands to the daemon and receives output. 
+        
+        -> The registry stores Docker images and allows them to be shared among users and systems.
+
+        -> A Docker image is a lightweight, standalone, and executable package 
+        that includes everything needed to run the desired software application.
+
+        -> A container in Docker allows you to run an application with all the dependencies it needs. 
+        To create a container we need Docker Image.
+
+
+    -> Setup Docker 
+
+        -> AWS / AZURE 
+
+            -> 8 GB RAM - 2 CPU's - 30 GB Storage 
+
+            -> Docker Works On Multiple Ports 
+
+            -> Make sure to add following ports in firewall 
+            i.e Security Group / Network Security Group 
+
+                -> 22 / 80 / 32768-61000 / 8080-9090 
+
+                    -> 32768-61000      -> Docker Pre Defined Range (Mandatory)
+
+                    -> 8080-9090        -> User Defined Range (Optional i.e Based On Requirements)
+
+                    -> 3000-5000        -> User Defined Range (Optional i.e Based On Requirements)
+
+
+        -> Install Docker 
+
+            docker 
+
+            ls
+            wget -O get-docker.sh https://get.docker.com && sh get-docker.sh
+            ls
+
+            docker
+
+    -> Check Docker information
+
+            -> docker info 
+            
+            -> NOTE: Permission issues as ubuntu user cannot work with docker daemon, 
+            fix by adding ubuntu user to docker group
+
+
+            -> sudo grep docker /etc/group
+            -> sudo usermod -aG docker ubuntu
+            -> newgrp docker 
+            -> sudo grep docker /etc/group
+
+            -> docker info 
+
+        -> Check Docker Images 
+
+            -> docker image ls 
+
+        -> Check Docker Containers  
+
+            -> docker container ls -a 
+        
+        -> Create Docker Container
+
+            -> docker container run --name name_of_container image_name
+
+            -> NOTE: hello-world docker image confirms installation status 
+
+            -> docker container run --name c1 hello-world

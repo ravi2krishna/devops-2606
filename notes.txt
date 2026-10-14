@@ -1324,3 +1324,165 @@ Class - 13
             -> NOTE: hello-world docker image confirms installation status 
 
             -> docker container run --name c1 hello-world
+
+
+Class - 14
+==========
+
+    -> Container Modes 
+
+        -> No Mode 
+
+            -> Containers will exit i.e Stopped
+
+        -> Interactive Mode / Foreground Mode (Development / Troubleshooting)
+
+            -> Containers will run interactively 
+
+            -> docker container run -it --name name_of_container image_name
+
+            -> docker container run -it --name ubc1 ubuntu
+
+            -> cat /etc/os-release
+
+            -> Verify By Opening One more Sessions For Docker Server 
+
+                -> docker container ls -a
+
+                -> Check the STATUS 
+
+            -> NOTE: Containers are "Lightweight" and "Efficient"
+
+                -> Run Following Command On Docker Server 
+
+                    -> ps -ef 
+
+                -> Run Following Command On Docker Container (ubc1)
+
+                    -> ps -ef 
+
+                    -> ssh 
+
+                    -> git 
+
+                    -> ss
+
+                -> NOTE: As we have Microservices, we need Micro Sized Environments
+                i.e Containers Using Images Which Has Only What is Required
+
+            -> NOTE: In Interactive Mode Containers Will stop, once we come out of the container
+            i.e it stays alive until you are connected.
+
+        
+        
+        -> Detached Mode / Background Mode (Production)
+
+            -> Containers will "ALWAYS" run in Background, 
+            unless you explicitly Stop 
+
+            -> docker container run -dt --name name_of_container image_name
+
+            -> docker container run -dt --name ubc2 ubuntu
+
+            -> docker container ls -a
+
+            -> docker container exec name_of_container command_to_execute
+
+            -> docker container exec ubc2 cat /etc/os-release
+
+            -> docker container exec ubc2 ps -ef
+
+            -> To Interact with container use below command 
+
+                -> docker container exec -it name_of_container bash 
+
+                -> docker container exec -it ubc2 bash 
+
+                -> exit 
+
+                -> docker container ls -a 
+
+                    -> NOTE: Container is still up and running, unlike Interactive Mode 
+
+
+    
+    -> Container Management Commands 
+
+        -> Just Like Servers: Create / Start / Stop / Remove 
+
+        -> It's Same With Containers Too 
+
+            -> Create / Start / Stop / Remove Containers 
+
+            -> Create Container
+            
+                -> docker container run -dt --name name_of_container image_name  
+
+            -> Remove Container
+
+                -> docker container rm name_of_container
+
+                -> docker container rm id_of_container
+
+            -> Stop Container
+
+                -> docker container stop name_of_container
+
+                -> docker container stop id_of_container
+
+            -> Start Container
+
+                -> docker container start name_of_container
+
+                -> docker container start id_of_container
+
+    
+    -> Goal: Run Web Applications in Containers, like we did in Servers
+
+        -> Servers  -   Containers 
+
+    -> Procedure In Server / VM 
+
+        -> Create Server 
+        -> Update System 
+        -> Installing Nginx Web Server 
+        -> Fetch Application Code 
+        -> Deploy Application On Nginx Web Server - /var/www/html 
+
+    
+    -> Procedure In Container 
+
+        -> docker container run -dt --name webapp ubuntu
+
+        -> sudo ss -ntpl
+
+        -> docker container exec -it webapp bash 
+
+        -> ss -ntpl
+
+        -> apt update -y 
+
+        -> apt install iproute2 -y 
+
+        -> ss -ntpl
+
+        -> apt install nginx -y
+
+        -> service nginx start 
+
+        -> ss -ntpl
+
+    -> Check Container properties
+
+        -> docker container inspect name_of_container
+
+        -> docker container inspect webapp
+
+            -> "IPAddress": "172.17.0.2"
+
+            -> 172.17.0.2 is a private ip created under docker network,
+            private ips work in Intranet.
+
+            -> curl 172.17.0.2
+
+            

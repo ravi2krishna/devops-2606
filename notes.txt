@@ -1485,4 +1485,146 @@ Class - 14
 
             -> curl 172.17.0.2
 
-            
+
+Class - 15
+==========
+
+    -> New Requirement
+
+        -> We Have Ecommerce Application Which Requires a Web Server 
+
+        -> We Have LMS Application Which Requires a Web Server 
+
+        -> We Have CRM Application Which Requires a Web Server 
+
+    
+    -> NOTE: With Earlier Approach, i might have needed three different Servers 
+
+        -> Server-1: Ecommerce Application On Nginx
+
+        -> Server-2: LMS Application On Nginx
+
+        -> Server-3: CRM Application On Nginx
+
+    
+    -> NOTE: With Docker Approach, i might have needed three different Containers  
+
+        -> Container-1: Ecommerce Application On Nginx
+
+        -> Container-2: LMS Application On Nginx
+
+        -> Container-3: CRM Application On Nginx
+
+    
+    -> Ecommerce Application On Nginx
+
+        -> docker container run -dt --name ecommerce ubuntu
+        -> docker container exec -it ecommerce bash 
+        -> apt update -y 
+        -> apt install iproute2 -y 
+        -> apt install nginx -y
+        -> service nginx start 
+        -> ss -ntpl
+        -> exit 
+        -> docker container ls -a 
+ 
+    
+    -> LMS Application On Nginx
+
+        -> docker container run -dt --name lms ubuntu
+        -> docker container exec -it lms bash 
+        -> apt update -y 
+        -> apt install iproute2 -y 
+        -> apt install nginx -y
+        -> service nginx start 
+        -> ss -ntpl
+        -> exit 
+        -> docker container ls -a 
+
+    
+    -> CRM Application On Nginx
+
+        -> docker container run -dt --name crm ubuntu
+        -> docker container exec -it crm bash 
+        -> apt update -y 
+        -> apt install iproute2 -y 
+        -> apt install nginx -y
+        -> service nginx start 
+        -> ss -ntpl
+        -> exit 
+        -> docker container ls -a 
+
+
+    -> NOTE: With Above Approach, we need to do redundant actions,
+    that is why it's not a good approach for containers.
+
+    -> NOTE: Below Approach is a recommended way for Containers 
+
+    -> GOAL: Deploying Web Applications, For Which We Need Web Server 
+
+    -> NOTE: All Above In Docker are Considered As Images and Stored In 
+    Registry (Docker Hub) - http://hub.docker.com/
+
+        -> Python Is Docker Image
+
+        -> SonarQube Is Docker Image
+
+        -> Ubuntu Is Docker Image
+
+        -> Postgres Is Docker Image 
+
+    
+    -> Recommended Way Of Creating Containers 
+
+        -> LMS Application On Nginx
+
+            -> docker container run -dt --name lms nginx        
+            -> docker container inspect lms 
+
+        -> CRM Application On Nginx
+
+            -> docker container run -dt --name crm nginx
+            -> docker container inspect crm 
+
+
+    -> NOTE: Now how can we make Customers access these 
+    Web Applications from Internet ??
+
+    -> To Access Containers Outside network i.e Internet(WWW)
+    we need to understand "Docker Networking"
+
+
+    -> Docker Supports Following Network Driver, Each designed for 
+    Specific Use Case 
+
+        -> Host Network Driver  
+
+        -> None Network Driver 
+
+        -> Bridge Network Driver (***)
+
+    
+    -> Host Network Driver      
+
+        -> The host network driver in Docker removes network isolation 
+        between a container and its host, allowing the container to 
+        share the host's networking namespace directly.
+
+        -> The container does not get its own IP address; 
+        instead, it uses the host's IP address.
+
+        -> Port Conflicts: Because the container uses the host's ports, 
+        you cannot run two containers that use the same port 
+        (e.g., two Nginx instances on port 80) using the host driver.
+    
+    
+    
+    -> None Network Driver 
+
+        -> The "none" driver provides complete network isolation by 
+        disabling all networking for a container.
+
+        -> The container cannot reach external networks, 
+        and no external network can reach the container.
+
+        -> Docker does not assign any IP address to containers using this driver.

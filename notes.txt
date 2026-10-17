@@ -1628,3 +1628,38 @@ Class - 15
         and no external network can reach the container.
 
         -> Docker does not assign any IP address to containers using this driver.
+
+
+Class - 16
+==========
+
+    -> Bridge Network Driver (***) 
+
+        -> Bridge Network Driver is default network driver for containers. 
+        When a new container is Created, it's attached to the Bridge network.   
+
+        -> Using bridge network we can run multiple containers at same time
+        that can reach external networks as well         
+
+        -> To allow external access to Containers we use Port Publishing/Forwarding. 
+
+        -> Port Publishing/Forwarding
+
+            -> This is the activity that makes a "port inside a container" 
+            accessible to "ports on the Docker host" for external access.
+
+            -> -P For Ephemeral Ports 
+
+                -> 32768-61000      -> Docker Pre Defined Range (Mandatory)
+
+            -> -p is user defined i.e -p user_def_host_port:container_port
+            
+                -> 8080-9090        -> User Defined Range (Optional i.e Based On Requirements)
+
+
+
+        -> Earlier We Don't Know What Does This Command Do 
+
+            -> docker container run -dt --name sonarqube --restart=always -p 9000:9000 sonarqube
+
+        

@@ -2132,3 +2132,127 @@ Class - 18
     -> docker container run -dt --name login-app -p 8080:80 ravi2krishna/login-2606
     -> docker container ls -a
     -> Browse IP with port 8080
+
+
+Class - 19
+==========
+
+    -> Docker Tags 
+
+        -> Docker tags are human-readable aliases used to version and organize images 
+        within a repository. 
+        
+        -> While an image's true identity is its unique ID (SHA256 hash), 
+        a tag provides a convenient way to refer to specific releases or variants.
+
+        -> The Default Tag: If you do not specify a tag when pulling or building an image, 
+        Docker automatically applies the :latest tag
+
+        -> Multiple Tags: A single image ID can have multiple tags. 
+        For example, the same image might be tagged as both v1.2.3 and latest.
+
+            -> https://notepad-plus-plus.org/downloads - Application 
+
+            -> https://github.com/notepad-plus-plus/notepad-plus-plus - Application Code 
+
+
+    -> docker container run -dt --name login-app -p 8080:80 ravi2krishna/login-2606
+        -> docker image ls 
+
+            -> Browse IP with Port 8080
+
+        -> New Requirement For Login App
+
+            -> Student Login Form 
+
+            -> Trainer Login Form 
+
+            -> Admin Login Form
+
+        -> NOTE: For above Requirement, we can have three different tags 
+        in terms of Docker Images, we have same concept in GitHub too i.e GitHub Tags 
+
+        -> Create Tags in GitHub and for Docker Images Too 
+
+        -> GitHub Releases (Source Code)
+
+            -> https://github.com/ravi2krishna/login-2606/archive/refs/tags/1.1.tar.gz
+
+            -> https://github.com/ravi2krishna/login-2606/archive/refs/tags/2.1.tar.gz
+
+            -> https://github.com/ravi2krishna/login-2606/archive/refs/tags/3.1.tar.gz 
+
+        -> Download Releases
+
+            -> wget https://github.com/ravi2krishna/login-2606/archive/refs/tags/1.1.tar.gz 
+            -> wget https://github.com/ravi2krishna/login-2606/archive/refs/tags/2.1.tar.gz 
+            -> wget https://github.com/ravi2krishna/login-2606/archive/refs/tags/3.1.tar.gz 
+
+            -> ls 
+
+            -> Extract Files For Above 
+
+                -> tar xf 1.1.tar.gz
+                -> tar xf 2.1.tar.gz
+                -> tar xf 3.1.tar.gz
+
+                -> cd ~/login-2606-1.1
+                -> vi Dockerfile 
+                FROM nginx 
+                COPY . /usr/share/nginx/html
+                
+                # Syntax -> docker build -t ravi2krishna/login-2606:tag . 
+
+                -> docker build -t ravi2krishna/login-2606:student . 
+                
+                -> cd ~/login-2606-2.1
+                -> cp ~/login-2606-1.1/Dockerfile .
+                -> docker build -t ravi2krishna/login-2606:trainer . 
+
+                -> cd ~/login-2606-3.1
+                -> cp ~/login-2606-1.1/Dockerfile .
+                -> docker build -t ravi2krishna/login-2606:admin . 
+
+                -> docker image ls 
+
+            -> docker container run -dt --name student-login-app -p 8081:80 ravi2krishna/login-2606:student 
+            -> docker container run -dt --name trainer-login-app -p 8082:80 ravi2krishna/login-2606:trainer 
+            -> docker container run -dt --name admin-login-app -p 8083:80 ravi2krishna/login-2606:admin 
+
+            -> docker container ls -a
+
+            -> Browse IP with Port 8080
+            -> Browse IP with Port 8081
+            -> Browse IP with Port 8082
+            -> Browse IP with Port 8083
+
+            -> docker push ravi2krishna/login-2606
+            -> docker push ravi2krishna/login-2606:student
+            -> docker push ravi2krishna/login-2606:trainer
+            -> docker push ravi2krishna/login-2606:admin
+
+
+    -> Project - 1 (LMS Application)
+
+        -> Above Project Took 2-3 Hours To Deploy 
+
+    -> Project - 2 (LMS Application) 
+
+        -> Implement Acceleration i.e "FASTER" Deployments Using "Containerization" Practice  
+
+    
+    -> Dockerize LMS Application 
+
+        -> We Can Dockerize Any Three Tier Application 
+
+        -> LMS: Frontend + Backend + Database 
+
+        -> NOTE: Just Like LMS App Setup On Server, We Will Do In Containers 
+
+            -> Setup Database (Postgres)
+
+            -> Setup API (Nodejs)
+
+            -> Setup Frontend (Nginx)
+
+            

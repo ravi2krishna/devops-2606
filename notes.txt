@@ -2256,3 +2256,203 @@ Class - 19
             -> Setup Frontend (Nginx)
 
             
+Class - 20
+==========
+
+            -> Dockerize LMS Application 
+
+            -> You can Dockerize any three tier architecture application
+
+            -> LMS: Frontend + Backend + Database (Web Server - Nodejs API - Postgres DB)
+
+            -> Before Beginning With Project - 2, clean up existing containers 
+
+                -> docker container rm -f $(docker container ls -aq)
+                -> docker container ls -a
+
+            -> NOTE: Just like LMS App Setup On Server, we will do in Containers 
+
+                -> Setup DB  
+                -> Setup API 
+                -> Setup WebApp  
+
+            -> Setup Postgres Database Using Docker 
+
+                -> docker container run -dt --name lms-db -e POSTGRES_PASSWORD=Login@123 postgres 
+                -> docker container ls -a
+    
+            -> Setup Nodejs Using Docker 
+
+                -> docker container run -dt --name t1 node:20
+                -> docker container ls -a
+                -> docker container exec t1 node -v 
+                -> docker container exec t1 npm -v 
+            
+            -> Steps To Build LMS Backend Image 
+
+                -> ls 
+                -> cd ~
+                -> git clone -b dev https://github.com/ravi2krishna/lms-v1.git
+                -> cd ~/lms-v1/api
+                -> ls 
+                -> vi .env 
+                    MODE=dev
+                    PORT=8080
+                    DATABASE_URL=postgresql://postgres:Login@123@localhost:5432/postgres
+
+                -> docker container inspect lms-db 
+                    
+                    -> Update IP of lms-db Container in .env file 
+                    MODE=dev
+                    PORT=8080
+                    DATABASE_URL=postgresql://postgres:Login@123@172.17.0.2:5432/postgres
+                
+                -> Remove Docker File (existing) 
+                    -> rm Dockerfile 
+                    -> ls Dockerfile
+
+                -> vi Dockerfile
+
+                    # Base Image
+                    FROM node:20
+
+                    # RUN - Runs Commands
+                    RUN mkdir /backend
+
+                    # WORKDIR - Set Path as Working Directory
+                    WORKDIR /backend
+
+                    # COPY - Copy Code
+                    COPY . /backend
+
+                    # RUN - Build Related Commands
+                    RUN npm install
+                    RUN npx prisma generate
+                    RUN npx prisma db push
+                    RUN npm run build
+
+                    # Start Application
+                    # RUN node build/index.js
+                    CMD ["node","build/index.js"]
+
+
+                -> docker build -t ravi2krishna/lms-be .
+
+                -> docker image ls
+
+                -> docker container run -dt --name lms-be -p 8080:8080 ravi2krishna/lms-be
+
+                -> docker container ls -a 
+
+                -> Verify Backend Status 
+
+                    -> Verify with Browser - http://public-ip:8080/api  
+
+                    -> NOTE: If you get below message, backend deployment is success   
+                    
+                        {"message":"success","mode":"dev"}
+
+                    -> docker push ravi2krishna/lms-be
+
+            -> Steps To Build LMS Frontend Image 
+
+            -> cd ~/lms-v1/webapp/
+
+            -> ls 
+
+            -> vi .env 
+
+                VITE_API_URL=http://public-ip:8080/api
+
+            -> Remove Docker File (existing) 
+                -> rm Dockerfile 
+                -> ls Dockerfile
+
+            -> vi Dockerfile
+
+                # Base Image
+                FROM node:20 AS build
+
+                # RUN - Runs Commands
+                RUN mkdir /frontend
+
+                # WORKDIR - Set Path as Working Directory
+                WORKDIR /frontend
+
+                # COPY - Copy Code
+                COPY . /frontend
+
+                # RUN - Build Related Commands
+                RUN npm install
+                RUN npm run build
+
+                # Deploy Application On NGINX
+                FROM nginx
+
+                # COPY
+                COPY --from=build /frontend/dist /usr/share/nginx/html
+
+            -> docker build -t ravi2krishna/lms-fe . 
+
+            -> docker container run -dt --name lms-fe -p 80:80 ravi2krishna/lms-fe 
+            -> docker container ls -a 
+
+            -> Verify Frontend With Browse Using - http://public-ip
+
+            -> docker push ravi2krishna/lms-fe
+
+        -> NOTE: In Future, if i want to run LMS Application
+
+            -> docker container run -dt --name lms-db -e POSTGRES_PASSWORD=Login@123 postgres 
+            -> docker container run -dt --name lms-be -p 8080:8080 ravi2krishna/lms-be
+            -> docker container run -dt --name lms-fe -p 80:80 ravi2krishna/lms-fe 
+
+
+    -> Project - 2 (LMS Application)
+
+        -> Without Docker, Above Project Took 2-3 Hours To Deploy 
+
+        -> Using Docker, Above Project Took 2-3 Mins To Deploy 
+
+
+
+    -> DevOps is a set of PRACTICES that works towards the 
+    "AUTOMATION" and "INTEGRATION" of the processes between 
+    Software Development (Dev) and IT (Ops) teams, 
+    so that organizations can "BUILD", "TEST" and "DEPLOY" 
+    softwares/applications "FASTER" and more "RELIABLE"     
+
+
+    -> Project - 2
+
+        -> Implement Acceleration i.e "FASTER" Deployments Using "Containerization" Practice
+
+    
+    -> Project - 3 
+
+        -> Implement RELIABILITY i.e ALWAYS RUNNING without DOWNTIME (24/7) 
+        can be Achieved using "Orchestration" Practice
+
+        -> NOTE: Once we terminated Docker Server, We need to setup Environment from
+        the scratch once again (Single Point Of Failure)
+
+    
+    -> High Availability (HA)
+
+            -> High Availability means designing IT systems 
+            to operate continuously with minimal or zero downtime.
+
+            -> To Achieve High Availability, we need to eliminate Single Point of Failure (SPOF)
+
+            -> High Availability is achieved by deploying resources across 
+            multiple availability zones (AZs), an availability zone is an physical datacenter.
+
+            -> To Achieve High Availability / Reliability, We need process called "Orchestration"
+
+            -> NOTE: To Implement Orchestration Practice, We use "Kubernetes"
+
+    
+    -> Kubernetes
+
+        -> Kubernetes is a Production-Grade Container Orchestration, which builds up on 
+        "15 years of experience of running production workloads at Google"

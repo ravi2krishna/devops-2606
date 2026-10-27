@@ -2456,3 +2456,181 @@ Class - 20
 
         -> Kubernetes is a Production-Grade Container Orchestration, which builds up on 
         "15 years of experience of running production workloads at Google"
+
+
+Class - 21
+==========
+
+    -> Kubernetes Components / Architecture
+
+        -> https://miro.medium.com/v2/1*UUU4oblu-xDDoZAitaRz2g.jpeg
+
+    
+    -> Master Components
+
+        -> API Server: 
+            
+            -> The API server acts as the brain of the Kubernetes cluster. 
+            It provides a central point of communication for all the other components. 
+            When you want to create, update, or delete something in the cluster, 
+            you communicate with the API server.
+
+        -> etcd: 
+            
+            -> Think of etcd as the memory of the Kubernetes cluster. 
+            It stores the configuration data and the state of the entire cluster. 
+            When any component wants to know the current state of the cluster, it asks etcd.
+
+        -> Scheduler: 
+            
+            -> The Scheduler is like a matchmaker. 
+            Its job is to decide which worker node should run each new app container/pod. 
+            It considers factors like available resources, to make sure app containers/pods 
+            are placed on suitable worker nodes.
+
+        -> Controller: 
+
+            -> The Controller Manager is like the supervisor of the cluster. 
+            It continuously observes the state of the cluster through the API server. 
+            If it detects that the actual state of the cluster doesn't match the desired state 
+            (for example, if an app container/pod goes down), 
+            it takes action to make the cluster converge to the desired state.
+
+
+    -> Worker Components
+
+        -> Kubelet: 
+
+            -> The Kubelet is like the worker's Agent Software.  
+            It runs on every worker node and is responsible for making sure 
+            that the containers/pods assigned to its node are running and healthy. 
+            It takes care of starting, stopping, and monitoring containers within the pods. 
+            It updates the status back to Master.
+
+        -> Docker: 
+
+            -> The container runtime is the software that runs and manages containers.  
+            The container runtime is responsible for pulling container images from a registry, 
+            creating containers, and managing their life cycles.
+
+        -> Kube Proxy: 
+
+            -> The Kube Proxy is like the traffic cop of the worker nodes. 
+            It manages the network connections and routing between the containers/pods and services 
+            within the cluster. It ensures that network traffic is correctly directed to the 
+            right destination.
+
+    
+    -> Workstation Components
+
+        -> Kubectl 
+
+            -> kubectl is the official command-line interface (CLI) used 
+            to communicate with the Kubernetes API and manage your 
+            cluster's control plane. It allows you to deploy applications.
+
+    
+    -> Setup Kubernetes For Learning 
+
+        -> Minikube - Mini Kubernetes (FREE -> Minimal Cost)
+
+        -> Minikube is a "single node cluster", where the master processes and worker processes 
+        and workstation all run on one node (one server).
+
+            -> https://www.devopsschool.com/blog/wp-content/uploads/2022/12/minikube-architecture-4-1024x683.png
+
+        -> Minikube is primarily used for local development and "learning purposes".
+
+        -> Minikube is great for learning, but it is "not designed for running production workloads".
+
+        -> For production environments, you would typically use "managed Kubernetes services" 
+        provided by "cloud providers" i.e AWS EKS
+
+    
+
+    -> Minikube Requires, below hardware configuration
+
+        -> 4 GB RAM - 2 CPU's - 30 GB Storage 
+
+        -> Make sure to add ports 22, 80, 30000-32767 as part of your Firewall Security Group(AWS)
+
+
+    -> Setup Minikube 
+
+        -> Verify Commands 
+
+            -> docker 
+            -> minikube 
+            -> kubectl 
+
+        -> Setup Docker 
+
+            -> docker 
+            -> wget -O get-docker.sh https://get.docker.com && sh get-docker.sh
+            -> docker
+            -> sudo usermod -aG docker ubuntu
+            -> newgrp docker
+
+        -> Setup Minikube
+
+            -> minikube
+            -> curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+            -> sudo install minikube-linux-amd64 /usr/local/bin/minikube
+            -> minikube
+            -> minikube status
+            -> minikube start
+            -> minikube status
+
+        -> Setup kubectl
+
+            -> kubectl
+            -> curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            -> chmod u+x kubectl 
+            -> sudo mv kubectl /usr/local/bin/kubectl
+            -> kubectl 
+
+    -> NOTE: Once the minikube cluster is setup, we are gonna be using "kubectl" to do 
+    any sort of work on the cluster like getting status, creating applications etc 
+
+        -> kubectl get pods 
+        -> kubectl get replicasets 
+        -> kubectl get deployments 
+        -> etc 
+
+
+    -> Kubernetes Objects 
+
+        -> By creating an object, you’re telling the Kubernetes system 
+        what applications to run in the cluster
+
+        -> Few examples of kubernetes objects include pods, replicasets, deployments etc. 
+
+        -> To work with Kubernetes objects, whether to "create", "modify" or "delete" them, 
+        you’ll need to use a command-line tool called KUBECTL.
+
+    
+    -> Object Spec & Object Status 
+
+        -> Object Spec
+
+            -> The object spec, which you(devops engineer) must provide, 
+            describes your desired state for the object(application), 
+            the characteristics that you want the object to have.  
+
+
+        -> Object Status
+
+            -> The object status describes the actual state of the object, 
+            and is supplied and updated by the Kubernetes system. 
+
+        
+        -> https://kubernetes.io/docs/concepts/overview/working-with-objects/
+
+
+    -> Manage Objects 
+
+        -> Managing Objects inside kubernetes can be done using
+
+            -> Commands - Imperative Commands 
+
+            -> CODE (YAML) - Declarative Configuration Files or Kubernetes Manifests (recommended)

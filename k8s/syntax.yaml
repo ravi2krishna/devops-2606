@@ -1,0 +1,41 @@
+# - Means Comment 
+
+# Yaml Files Can Have .yaml or .yml as extension 
+
+# Simple Key Value Pairs
+key: value
+name: ravi
+course: devops
+students: 5
+
+# Lists: multiple items 
+courses:
+- devops 
+- aws 
+- azure 
+- python 
+
+# Dictionary: Set Of Key Value Pairs
+trainer:
+  name: ravi 
+  course: devops 
+  location: hyderabad 
+
+
+# Real World k8s file - pod.yaml
+apiVersion: v1 # Simple Key Value Pair
+kind: Pod # Simple Key Value Pair
+metadata: # Dictionary: Set Of Key Value Pairs
+  name: nginx
+spec: # Dictionary: Set Of Key Value Pairs
+  containers:
+  - name: nginx # List
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+
+
+
+
+
+

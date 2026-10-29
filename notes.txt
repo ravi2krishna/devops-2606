@@ -2634,3 +2634,96 @@ Class - 21
             -> Commands - Imperative Commands 
 
             -> CODE (YAML) - Declarative Configuration Files or Kubernetes Manifests (recommended)
+
+
+Class - 22
+==========
+
+        -> Pod Object
+
+        -> A Pod Object, represents a "unit of deployment" i.e 
+        a "single instance of an application" in Kubernetes.
+
+            -> Login Application: login-vm 
+
+            -> Login Application: login-container 
+
+            -> Login Application: login-pod 
+
+        -> Imperative Commands (Similar To Docker Commands)
+
+            -> kubectl get pods (it's like docker container ls -a)
+
+            -> kubectl run name_of_pod --image image_name --port=port_number  (it's like docker container run)
+
+            -> kubectl run nginx-pod --image nginx --port=80 
+
+            -> kubectl get pods 
+
+            -> kubectl describe pod name_of_pod (it's like docker inspect command)
+
+            -> kubectl describe pod nginx-pod
+
+            -> kubectl exec name_of_pod -- command (it's like docker exec command)
+
+            -> kubectl exec nginx-pod -- cat /usr/share/nginx/html/index.html 
+
+            -> Accessing Application Inside Pod / Container 
+
+                -> Browse IP Of Server  - This site can’t be reached
+                
+                -> Browse IP Of Pod     - This site can’t be reached
+                    -> kubectl describe pod nginx-pod (get ip of pod)
+
+                -> NOTE: In the future, will work with Service Object to fix above issue 
+
+            -> kubectl delete pod name_of_pod (it's like docker container rm command)
+
+            -> kubectl delete pod nginx-pod 
+
+            -> kubectl get pods 
+
+
+-> Representing kubernetes (k8s) using CODE (YAML)
+
+    -> YAML 
+
+        -> YAML is a human-readable data serialization language. 
+        It is commonly used for "configuration files" (k8s) and in applications 
+        where data is being stored or transmitted.
+
+        -> YAML focuses on USER FRIENDLINESS & EASY READABILITY
+
+            -> https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlO2nvPAnbt5BtpPEkAetXCBHjvGdQqp_wFxYgtXxux0jSNU0e9Ceb707S&s=10
+
+        -> NOTE: YAML is used to store information about different k8s object
+        pods, replicasets, deployments etc 
+
+        
+        -> YAML is k8s has
+
+            -> Simple Key Values Pairs 
+
+                -> The basic type of entry in a YAML file is of a key value pair. 
+                After the Key and colon there is a space and then the value.
+
+                    -> key: value 
+
+            -> Lists: Multiple Items  
+
+                -> Lists would have a number of items listed under the name of the list. 
+                The elements of the list would start with a -
+
+                    -> Fruits:
+                    - apple 
+                    - banana 
+                    - etc
+
+            -> Dictionaries: Set Of Key Values Pairs 
+
+                -> A more complex type of YAML file would be a Dictionary
+                It consists of key-value pairs.
+
+                -> banana:
+                    calories: 200
+                    fat: 0.5 

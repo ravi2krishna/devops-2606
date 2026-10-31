@@ -2727,3 +2727,160 @@ Class - 22
                 -> banana:
                     calories: 200
                     fat: 0.5 
+
+
+Class - 23
+==========
+
+    -> Warning:
+
+        -> It is recommended that users create Pods only through a Controller, 
+        and not directly. 
+
+            -> Pods are ephemeral in nature no guarantee of availability
+
+            -> Pods are not designed to run forever 
+
+            -> Pods do not heal or repair themselves 
+
+    
+    -> Replicaset Object 
+
+        -> Replicaset Object, is often used to guarantee the "availability" of pods  
+
+        -> Replica Set manages pod lifecycle
+
+        -> Replicaset helps you achieve High Availability 
+
+        -> A Kubernetes ReplicaSet (RS) is a core workload controller designed to 
+        maintain a stable set of replica Pods running at any given time. 
+        It acts as a self-healing mechanism.
+
+        -> Self-Healing: Automatically replaces crashed, deleted, or failed Pods.
+
+        -> https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#replicaset-v1-apps
+
+        -> kubectl get replicasets 
+
+        -> kubectl get pods 
+
+            -> nginx-2vzfn   1/1     Running   0          73s
+
+        -> kubectl apply -f replicaset.yaml
+
+        -> kubectl get replicasets 
+
+        -> kubectl get pods  
+
+        -> kubectl apply -f pod.yaml 
+
+        -> kubectl get pods 
+
+            nginx-pod     1/1     Running   0          6s
+        
+        -> kubectl describe pod nginx-pod
+
+            -> NOTE: There is no controlled by option 
+
+        -> kubectl describe pod nginx-2vzfn 
+
+            -> NOTE: We have Controlled By:  ReplicaSet/nginx
+
+        -> kubectl delete pod nginx-pod
+
+            -> Deleting pod not controlled by ReplicaSet 
+
+        -> kubectl get pods
+
+            -> nginx-2vzfn   1/1     Running   0          16m
+
+        -> kubectl delete pod nginx-2vzfn 
+       
+            -> Deleting pod controlled by ReplicaSet 
+
+        -> kubectl get pods
+
+            -> nginx-qs7rt   1/1     Running   0          5s
+
+        -> NOTE: This behavior confirms, Replicaset Object guarantees "availability" of pods  
+
+        -> https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#replicaset-v1-apps
+
+        -> NOTE:
+
+            -> Warning: In many cases it is recommended to create a "Deployment" instead of ReplicaSet.
+
+    -> NOTE: Above Warning Was Given, As ReplicaSet Doesn't ALLOW UPDATES 
+
+
+    -> Deployment Object 
+
+        -> A deployment provides "updates" for pods and replicasets.
+
+        -> https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#deployment-v1-apps
+
+        -> NOTE: No Warning For Deployment, this is the reason in the real world 
+        we never create pods and replicasets directly.
+        In Real World We Create Deployments, Which Manages Pods & Replicasets. 
+
+        -> Learning 
+
+            -> Pod -> Replicaset -> Deployment 
+
+        -> Real World 
+
+            -> Deployment -> Replicaset -> Pods 
+
+            -> Deployment - Provides Updates 
+            
+            -> Replicaset - Provides High Availability 
+            
+            -> Pods - Provides Containers To Run Applications 
+
+        
+    -> Create Deployment by copying existing ReplicaSet 
+        and just change kind to Deployment  
+
+        -> kubectl get deployments
+        -> kubectl get replicasets
+        -> kubectl get pods
+
+        -> kubectl apply -f deployment.yaml
+
+        -> kubectl get deployments
+        -> kubectl get replicasets
+        -> kubectl get pods
+
+            NAME                    READY   STATUS    RESTARTS   AGE
+            nginx-c475b744d-28zwf   1/1     Running   0          23s
+
+        -> kubectl describe pod <pod-name> (check for controlled by)
+
+        -> kubectl describe rs <rs-name> (check for controlled by)
+
+        -> kubectl exec nginx-c475b744d-28zwf -- ls /usr/share/nginx/html
+
+                50x.html
+                index.html
+
+        -> GOAL: Perform updates, change to login app
+
+        -> Update deployment.yaml image to ravi2krishna/login-2603 
+
+        -> kubectl get pods (check age)
+
+        -> kubectl apply -f deployment.yaml
+
+        -> kubectl get pods (check age)
+
+            NAME                     READY   STATUS    RESTARTS   AGE
+            nginx-59896c58f6-5q4jd   1/1     Running   0          11s
+
+        -> kubectl exec nginx-59896c58f6-5q4jd -- ls /usr/share/nginx/html
+
+                Dockerfile
+                README.md
+                img_avatar2.png
+                index.html
+
+        -> GOAL: Perform updates, Achieved    

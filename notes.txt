@@ -2884,3 +2884,113 @@ Class - 23
                 index.html
 
         -> GOAL: Perform updates, Achieved    
+
+
+Class - 24
+==========
+
+    -> NOTE: How to access our Login App Now, From Customers point of view ? 
+
+        -> Solution is Service Object 
+
+    -> Service Object 
+
+        -> A service is an object that acts as an endpoint, which you use to access the pods.
+
+        -> Service types: https://kubernetes.io/docs/concepts/services-networking/service/
+
+            -> NodePort         -> access over internet, not for production (for minikube)
+            -> ClusterIP        -> access within intranet (private communication) (api to db)
+            -> LoadBalancer     -> access over internet, provided by cloud for production (EKS,AKS)
+            -> ExternalName     -> For Domain Name Forwarding 
+
+        -> https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#service-v1-core
+
+    
+    -> NodePort Service
+
+        -> You can contact the NodePort Service, from outside (www) the cluster, 
+        by requesting on <NodeIP>:<NodePort>
+
+            -> This is similar to docker using -P (32768 - 61000)
+
+            -> In k8s we use (30000 - 32767)
+
+        -> NOTE: In Docker We have port Forwarding, likewise we have 
+        Kubernetes NodePort Service
+
+    
+
+    -> Labels & Selectors
+
+        -> Labels: Labels are key/value pairs that are attached to objects.  
+
+        -> Selectors: Using a label selector, we can identify a set of objects.
+
+        -> https://kubernetes.io/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg
+
+        -> NOTE: Whatever the label we have in the pod template, 
+        the same should be in "selector" section
+
+    -> Check k8s services
+
+        -> kubectl get services 
+
+            NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+            kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   5d
+
+        -> NOTE: Above is k8s internal service(TYPE: ClusterIP)
+
+        -> Create NodePort service(service.yaml)
+
+            -> kubectl apply -f service.yaml
+
+            -> kubectl get services 
+                
+                NAME            TYPE        CLUSTER-IP   EXTERNAL-IP        PORT(S)   AGE
+                nginx-service   NodePort    10.102.24.236   <none>        80:30000/TCP   6s
+
+            -> Now Perform Port Forwarding 
+
+                -> Browse Application On http://18.119.104.54:30000/
+
+                -> kubectl port-forward --address 0.0.0.0 service/service_name node_port:app_port
+
+                -> kubectl port-forward --address 0.0.0.0 service/nginx-service 30000:80
+
+                -> Browse Application On http://18.119.104.54:30000/
+
+    
+    -> NOTE: Now If We Terminate Minikube Server, again we would have Single Point Of Failure.
+
+    -> NOTE: Next we want to deploy our applications in production environment 
+
+    -> NOTE: Minikube is great for learning, but it is "not designed for running production workloads"
+
+    -> In Terms Of Production workloads, we got 
+
+        -> AWS EKS Production Cluster (Elastic Kubernetes Service)
+
+    -> AWS EKS Production Cluster (Elastic Kubernetes Service)
+
+        -> Master           (Highly available)
+
+        -> Worker Nodes     (Highly available)
+
+        -> Workstation      (Laptop -> Server)
+
+        -> EKS - https://drive.google.com/file/d/1w2zsDUPNmqBWs9c6auyd8YkZSOeaHQG2/view?usp=sharing
+
+        -> EKS Architecture - https://drive.google.com/file/d/1Z_f8LuHC0kTxTVabvd2rOAGJa6AvM1TO/view?usp=sharing
+
+
+    
+    -> Steps To Setup AWS EKS Production Cluster 
+
+        -> Create IAM User 
+
+            -> Using this iam user created, Will Setup Production Cluster 
+
+            -> NOTE: Don't Use Root User 
+
+        

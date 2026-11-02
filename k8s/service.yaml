@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: app-service
+spec:
+  ports:
+    # Accept traffic sent to port 80
+    - name: http
+      port: 80
+      nodePort: 30000 
+  selector:
+    # Loadbalance traffic across Pods matching this label selector
+    app: hello 
+  type: NodePort # minikube 

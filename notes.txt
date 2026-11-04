@@ -3038,3 +3038,19 @@ Class - 25
             kubectl get services
             kubectl get pods
             kubectl get deployments
+
+
+Class - 26
+==========
+
+    -> EKS Production Continued 
+
+    -> Load Balancer Service For EKS Production, needs Subnet Tagging 
+
+        -> aws ec2 describe-subnets \
+  --filters "Name=vpc-id,Values=vpc-014021a9a076e96eb" \
+  --query 'Subnets[*].{Subnet:SubnetId,AZ:AvailabilityZone,FreeIPs:AvailableIpAddressCount,Tags:Tags}'
+
+        -> aws ec2 create-tags \
+  --resources subnet-0ee7a7f196936764e subnet-0fee576bdce04d4db \
+  --tags Key=kubernetes.io/role/elb,Value=1

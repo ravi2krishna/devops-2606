@@ -3054,3 +3054,51 @@ Class - 26
         -> aws ec2 create-tags \
   --resources subnet-0ee7a7f196936764e subnet-0fee576bdce04d4db \
   --tags Key=kubernetes.io/role/elb,Value=1
+
+
+Class - 27
+==========
+
+    -> Setup AKS Production Cluster 
+
+    -> Workstation Setup 
+
+        -> Setup docker
+
+            wget -O get-docker.sh https://get.docker.com && sh get-docker.sh
+            docker
+            sudo usermod -aG docker ubuntu
+            newgrp docker
+
+
+        -> Setup Kubectl
+
+            kubectl 
+            curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl
+            chmod +x kubectl
+            sudo mv kubectl /usr/local/bin/kubectl
+            kubectl
+            kubectl get pods
+
+                -> The connection to the server localhost:8080 was refused - 
+                did you specify the right host or port?
+
+        -> Connect Workstation With Cluster, To Deploy Applications On Production Cluster 
+
+            az 
+            curl -fsSL 'https://azurecliprod.blob.core.windows.net/$root/deb_install.sh' | sudo bash
+            az 
+            kubectl get pods
+            kubectl get services
+            # Authentication
+            az login --use-device-code
+            # Set Subscription Details
+            az account set --subscription ca209ddf-2077-4aee-9d80-57b644a54ca7
+            cat /home/ubuntu/.kube/config
+            # Download Credentials
+            az aks get-credentials --resource-group k8s --name lms --overwrite-existing
+            # Verify API Endpoint & Credentials
+            cat /home/ubuntu/.kube/config
+
+            kubectl get pods
+            kubectl get services
